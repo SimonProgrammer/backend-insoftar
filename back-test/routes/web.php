@@ -12,7 +12,9 @@
 */
 
 Route::prefix('user')->group(function () {
+    Route::put('edit','UserController@editUser');
     Route::post('add','UserController@saveUser');
+    Route::get('list','UserController@getUsers');
 });
 
 Route::get('/', function () {

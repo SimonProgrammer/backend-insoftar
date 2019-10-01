@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
-class UserStoreRequest extends FormRequest
+class UserEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,10 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'identification' => 'required|numeric|unique:users',
+            'id' => 'required|numeric|exists:users,id',
+            'identification' => [ 'required','numeric',Rule::unique('users')->ignore($this->request->get('id'))],
             'name' => 'required|string|max:50',
-            'email' => 'required|email|unique:users',
+            'email' => [ 'required','email',Rule::unique('users')->ignore($this->request->get('id'))],
             'phone' => 'required|numeric',
             'password' => 'required|string|min:6'
         ];
