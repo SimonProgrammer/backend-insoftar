@@ -11,6 +11,10 @@
 |
 */
 
+Route::prefix('user')->group(function () {
+    Route::post('add','UserController@saveUser');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
